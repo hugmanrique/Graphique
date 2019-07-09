@@ -28,19 +28,19 @@ export const ColorContext = React.createContext();
  * Hook used by parent containers to update a global counter
  * between children.
  */
-export function useColorContext(palette) {
+export function useColorState(palette) {
   let colorIndex = 0;
 
   const getCurrentIndex = () => colorIndex;
   const setCurrentIndex = newColorIndex => (colorIndex = newColorIndex);
 
-  const [context] = useState({
+  const [state] = useState({
     palette,
     getCurrentIndex,
     setCurrentIndex
   });
 
-  return context;
+  return state;
 }
 
 /**

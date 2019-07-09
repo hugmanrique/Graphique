@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import { GraphiqueContext } from '../context';
 import { viewportType, defaultViewport } from '../viewport';
-import { ColorContext, useColorContext, getColorPalette } from '../colors';
+import { ColorContext, useColorState, getColorPalette } from '../colors';
 
 function Graphique({ width, height, viewport, colorPalette, children }) {
   const [context] = useState({ viewport, width, height });
-  const colorContext = useColorContext(colorPalette || getColorPalette());
+  const colorState = useColorState(colorPalette || getColorPalette());
 
   return (
     <svg
@@ -17,7 +17,7 @@ function Graphique({ width, height, viewport, colorPalette, children }) {
       version="1.1"
     >
       <GraphiqueContext.Provider value={context}>
-        <ColorContext.Provider value={colorContext}>
+        <ColorContext.Provider value={colorState}>
           {children}
         </ColorContext.Provider>
       </GraphiqueContext.Provider>
