@@ -5,11 +5,15 @@ import Polyline from './Polyline';
 import useGraphique from '../context';
 import useColor from '../colors';
 
-function Function({ fn, domain, pointCount, stroke, ...props }) {
-  const { getCanvasPoint, viewport } = useGraphique();
+function Function({ fn, domain, pointCount, stroke, strokeWidth, ...props }) {
+  const { getCanvasPoint, viewport, height } = useGraphique();
   const color = useColor();
 
   const [minX, maxX] = domain ? domain : viewport.x;
+  const {
+    y: [minY, maxY]
+  } = viewport;
+  const safeZone = strokeWidth * 2;
   const xDelta = (maxX - minX) / (pointCount - 1);
 
   // Memoizing this array won't have any effects as we depend on all the props
@@ -17,9 +21,19 @@ function Function({ fn, domain, pointCount, stroke, ...props }) {
 
   for (let i = 0; i < pointCount; i++) {
     const x = minX + xDelta * i;
-    const y = fn(x);
+    let y = fn(x);
 
     const point = getCanvasPoint(x, y);
+
+    // Clamp y values outside of canvas to reduce polyline length
+
+    if (y < minY) {
+      point[1] = height + safeZone;
+    }
+
+    if (y > maxY) {
+      point[1] = -safeZone;
+    }
 
     points.push(point[0], point[1]);
   }
@@ -30,13 +44,21 @@ function Function({ fn, domain, pointCount, stroke, ...props }) {
     stroke = color;
   }
 
-  return <Polyline {...props} stroke={stroke} points={points} />;
+  return (
+    <Polyline
+      {...props}
+      stroke={stroke}
+      strokeWidth={strokeWidth}
+      points={points}
+    />
+  );
 }
 
 Function.propTypes = {
   fn: PropTypes.func.isRequired,
   domain: PropTypes.arrayOf(PropTypes.number),
   stroke: PropTypes.string,
+  strokeWidth: PropTypes.number,
   pointCount: PropTypes.number
 };
 

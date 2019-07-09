@@ -22,10 +22,10 @@ function App() {
       <Graphique viewport={{ x: [-5, 5], y: [-50, 50] }}>
         <XAxis />
         <YAxis />
-        <Function fn={x => x * x} />
-        <Function fn={x => x * x * x} />
-        <Function fn={x => x * x * x * x} />
-        <Function fn={x => x * x * x * x * x} />
+        <Function fn={x => x * x} className="x2" />
+        <Function fn={x => x * x * x} className="x3" />
+        <Function fn={x => x * x * x * x} className="x4" />
+        <Function fn={x => x * x * x * x * x} className="x5" />
       </Graphique>
       <Graphique viewport={{ x: [-5, 5], y: [-3, 3] }}>
         <XAxis />

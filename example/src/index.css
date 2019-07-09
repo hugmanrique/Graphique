@@ -17,22 +17,34 @@ code {
   src: url('./math-regular.otf') format('opentype');
 }
 
-.sin {
-  stroke-dasharray: 796;
-  stroke-dashoffset: 796;
+.x2 {
+  stroke-dasharray: 870;
+  stroke-dashoffset: 870;
 }
 
-.test {
-  stroke-dasharray: 10961;
-  stroke-dashoffset: 10961;
+.x3 {
+  stroke-dasharray: 1142;
+  stroke-dashoffset: 1142;
+}
+
+.x4 {
+  stroke-dasharray: 1215;
+  stroke-dashoffset: 1215;
+}
+
+.x5 {
+  stroke-dasharray: 1260;
+  stroke-dashoffset: 1260;
 }
 
 svg text {
   font-family: Math, sans-serif;
 }
 
-.sin,
-.test {
+.x2,
+.x3,
+.x4,
+.x5 {
   animation: appear 4s ease-in forwards;
 }
 
