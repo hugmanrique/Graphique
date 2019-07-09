@@ -26,7 +26,7 @@
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c --environment NODE_ENV:production",
-    "netlify": "npm run build && cd example && npm ci && npm run build",
+    "netlify": "cd example && npm ci && npm run build",
     "prepublish": "npm run build"
   },
   "peerDependencies": {
