@@ -16,6 +16,7 @@ function Arrow({ from, to, markerSize, stroke, ...props }) {
   const canvasTo = getCanvasPoint(to);
 
   const markerId = `${canvasTo[0]}${canvasTo[1]}`;
+  const viewBoxDim = markerSize * MARKER_SIZE;
 
   return (
     <>
@@ -27,7 +28,7 @@ function Arrow({ from, to, markerSize, stroke, ...props }) {
           refX={MARKER_OFFSET_X}
           refY={3}
           orient="auto"
-          viewBox={`0 0 ${markerSize} ${markerSize}`}
+          viewBox={`0 0 ${viewBoxDim} ${viewBoxDim}`}
         >
           <path d="M0,0 L0,6 L9,3 z" fill={stroke} />
         </marker>
@@ -51,7 +52,7 @@ Arrow.propTypes = {
 };
 
 Arrow.defaultProps = {
-  markerSize: 10,
+  markerSize: 1,
   stroke: '#718096',
   strokeWidth: 2
 };
