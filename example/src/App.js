@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Graphique, { Function, XAxis, YAxis } from '@hugmanrique/graphique';
+import Graphique, { Function, Axes, Arrow } from '@hugmanrique/graphique';
 
 const a = 0.5;
 const b = 3;
@@ -20,16 +20,14 @@ function App() {
     <div className="App">
       <p>Plots</p>
       <Graphique viewport={{ x: [-5, 5], y: [-50, 50] }}>
-        <XAxis />
-        <YAxis />
+        <Axes />
         <Function fn={x => x * x} className="x2" />
         <Function fn={x => x * x * x} className="x3" />
         <Function fn={x => x * x * x * x} className="x4" />
         <Function fn={x => x * x * x * x * x} className="x5" />
       </Graphique>
       <Graphique viewport={{ x: [-5, 5], y: [-3, 3] }}>
-        <XAxis />
-        <YAxis />
+        <Axes />
         <Function
           fn={x => Math.sin(1 / x)}
           pointCount={10000}
@@ -40,9 +38,13 @@ function App() {
         <Function fn={x => Math.cos(1 / x) - 3} pointCount={10000} />
       </Graphique>
       <Graphique viewport={{ x: [-2, 2], y: [-2, 2] }}>
-        <XAxis />
-        <YAxis />
+        <Axes />
         <Function fn={weierstrass} pointCount={3000} />
+      </Graphique>
+      <Graphique viewport={{ x: [-0.5, 9], y: [-5, 81] }}>
+        <Axes />
+        <Function fn={x => x * x} domain={[0, 9]} />
+        <Arrow from={[5, 0]} to={[5, 25]} />
       </Graphique>
     </div>
   );

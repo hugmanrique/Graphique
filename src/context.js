@@ -22,7 +22,14 @@ export default function useGraphique() {
     return height - yPercent * height;
   }
 
-  const getCanvasPoint = (x, y) => [getCanvasX(x), getCanvasY(y)];
+  function getCanvasPoint(x, y) {
+    if (Array.isArray(x)) {
+      return getCanvasPoint(x[0], x[1]);
+    }
+
+    // x is a point of the form [x, y]
+    return [getCanvasX(x), getCanvasY(y)];
+  }
 
   function isInCanvas(canvasX, canvasY) {
     if (Array.isArray(canvasX)) {
