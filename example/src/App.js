@@ -33,7 +33,7 @@ function App() {
         <Function
           fn={x => Math.sin(1 / x)}
           pointCount={10000}
-          className="test"
+          className="sin-1"
         />
         <Function fn={x => Math.sin(2 / x) / 2 - 1} />
         <Function fn={x => Math.sin(5 / x) + 2} />

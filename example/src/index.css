@@ -17,6 +17,10 @@ code {
   src: url('./math-regular.otf') format('opentype');
 }
 
+svg text {
+  font-family: Math, sans-serif;
+}
+
 .x2 {
   stroke-dasharray: 870;
   stroke-dashoffset: 870;
@@ -37,19 +41,29 @@ code {
   stroke-dashoffset: 1260;
 }
 
-svg text {
-  font-family: Math, sans-serif;
-}
-
 .x2,
 .x3,
 .x4,
 .x5 {
-  animation: appear 4s ease-in forwards;
+  animation: draw 4s ease-in forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.sin-1 {
+  animation: appear 2s ease-in-out forwards;
 }
 
 @keyframes appear {
+  from {
+    opacity: 0;
+  }
+
   to {
-    stroke-dashoffset: 0;
+    opacity: 1;
   }
 }

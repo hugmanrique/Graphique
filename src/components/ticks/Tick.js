@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Line from '../Line';
 import Text from '../Text';
 
+import { defaultAxisStroke, defaultAxisStrokeWidth } from '../../colors';
 import { pointType, directionType, clonePoint, addOffset } from '../../helpers';
 
 function Tick({ point, direction, length, label, stroke, strokeWidth }) {
@@ -49,8 +50,8 @@ Tick.propTypes = {
 Tick.defaultProps = {
   length: 6,
   label: null,
-  stroke: '#CBD5E0',
-  strokeWidth: 2
+  stroke: defaultAxisStroke,
+  strokeWidth: defaultAxisStrokeWidth
 };
 
 export default Tick;
