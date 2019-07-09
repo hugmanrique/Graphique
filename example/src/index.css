@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@font-face {
+  font-family: 'Math';
+  src: url('./math-regular.otf') format('opentype');
+}
+
+.sin {
+  stroke-dasharray: 796;
+  stroke-dashoffset: 796;
+}
+
+.test {
+  stroke-dasharray: 10961;
+  stroke-dashoffset: 10961;
+}
+
+svg text {
+  font-family: Math, sans-serif;
+}
+
+.sin,
+.test {
+  animation: appear 4s ease-in forwards;
+}
+
+@keyframes appear {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

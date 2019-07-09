@@ -1,0 +1,50 @@
+{
+  "name": "@hugmanrique/graphique",
+  "version": "0.0.1",
+  "description": "Plot graphs in React",
+  "author": {
+    "name": "Hugo Manrique",
+    "url": "https://hugmanrique.me",
+    "email": "npm@hugmanrique.me"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/hugmanrique/Graphique",
+  "keywords": [
+    "react",
+    "plot",
+    "graph",
+    "function"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c --environment NODE_ENV:production",
+    "prepublish": "npm run build"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "@babel/preset-react": "^7.0.0",
+    "@hugmanrique/eslint-config": "^1.0.3",
+    "eslint": "^6.0.1",
+    "prettier": "^1.18.2",
+    "prop-types": "^15.7.2",
+    "rollup": "^1.16.6",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-terser": "^5.1.1"
+  }
+}
