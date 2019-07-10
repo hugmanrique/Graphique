@@ -1,13 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Circle from '../primitives/Circle';
 import Text from '../primitives/Text';
 
 import { useGraphique } from '../context';
 import { useFunction } from './Function';
 import { addOffset, pointType } from '../points';
+import { secondaryColor } from '../colors';
 
-function FunctionPoint({ x, labelOffset }) {
+function FunctionPoint({
+  x,
+  labelOffset,
+  pointRadius,
+  pointColor,
+  ...textProps
+}) {
   const { getCanvasPoint, isInCanvas } = useGraphique();
   const { f } = useFunction();
 
@@ -24,18 +32,26 @@ function FunctionPoint({ x, labelOffset }) {
 
   return (
     <>
-      <Text point={textPoint}>{value}</Text>
+      <Circle point={point} radius={pointRadius} fill={pointColor} />
+      <Text {...textProps} point={textPoint}>
+        {value}
+      </Text>
     </>
   );
 }
 
 FunctionPoint.propTypes = {
   x: PropTypes.number.isRequired,
+  pointRadius: PropTypes.number,
+  pointColor: PropTypes.string,
   labelOffset: pointType
 };
 
 FunctionPoint.defaultProps = {
-  labelOffset: [0, 0]
+  labelOffset: [5, -10],
+  pointRadius: 4,
+  pointColor: secondaryColor,
+  fontSize: 20
 };
 
 export default React.memo(FunctionPoint);

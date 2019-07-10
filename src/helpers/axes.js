@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+import { secondaryColor } from '../colors';
+
 export const axisPropTypes = {
   ticks: PropTypes.object,
   stroke: PropTypes.string,
@@ -8,7 +10,7 @@ export const axisPropTypes = {
 
 // Note: ticks also have these default props
 export const axisDefaultProps = {
-  stroke: '#CBD5E0',
+  stroke: secondaryColor,
   strokeWidth: 2
 };
 

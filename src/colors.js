@@ -12,6 +12,8 @@ export const defaultPalette = [
   '#975A16'
 ];
 
+export const secondaryColor = '#CBD5E0';
+
 export const ColorContext = React.createContext();
 
 export function useColorData(palette) {

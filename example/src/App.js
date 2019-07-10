@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { Graphique, Function, Axes } from '@hugmanrique/graphique';
+import {
+  Graphique,
+  Function,
+  FunctionPoint,
+  Axes
+} from '@hugmanrique/graphique';
 
 const x2 = x => x * x;
 const viewport = { x: [-5, 5], y: [-50, 50] };
@@ -19,7 +24,9 @@ function App() {
       <p>Plots</p>
       <Graphique viewport={viewport}>
         <Axes />
-        <Function f={x2} />
+        <Function f={x2}>
+          <FunctionPoint x={3} labelOffset={[-50, -10]} />
+        </Function>
       </Graphique>
     </div>
   );
