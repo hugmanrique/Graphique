@@ -1,61 +1,85 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import Polyline from './Polyline';
-import useGraphique from '../context';
-import useColor from '../colors';
+import Polyline from '../primitives/Polyline';
 
-function Function({ fn, domain, pointCount, stroke, strokeWidth, ...props }) {
+import { useGraphique } from '../context';
+import { useColor } from '../colors';
+
+/**
+ * Stores the computed function points as [x, y, x2, y2, ...].
+ */
+export const FunctionContext = React.createContext();
+
+function Function({
+  f,
+  domain,
+  pointCount,
+  stroke: passedStroke,
+  strokeWidth,
+  children,
+  ...props
+}) {
   const { getCanvasPoint, viewport, height } = useGraphique();
-  const color = useColor();
+
+  // *Always* get a color from the hook
+  let stroke = useColor();
+
+  if (passedStroke) {
+    // Update stroke if prop was defined
+    stroke = passedStroke;
+  }
 
   const [minX, maxX] = domain ? domain : viewport.x;
   const {
     y: [minY, maxY]
   } = viewport;
-  const safeZone = strokeWidth * 2;
+  const safeZone = strokeWidth * 2; // Safe margin OOB
   const xDelta = (maxX - minX) / (pointCount - 1);
 
-  // Memoizing this array won't have any effects as we depend on all the props
-  const points = [];
+  // Compute function points
+  const points = useMemo(() => {
+    const computed = [];
 
-  for (let i = 0; i < pointCount; i++) {
-    const x = minX + xDelta * i;
-    let y = fn(x);
+    for (let i = 0; i < pointCount; i++) {
+      const x = minX + xDelta * i;
+      let y = f(x);
 
-    const point = getCanvasPoint(x, y);
+      const point = getCanvasPoint(x, y);
 
-    // Clamp y values outside of canvas to reduce polyline length
+      // Clamp y values outside of view to reduce polyline length
+      if (y < minY) {
+        point[1] = height + safeZone;
+      }
 
-    if (y < minY) {
-      point[1] = height + safeZone;
+      if (y > maxY) {
+        point[1] = -safeZone;
+      }
+
+      computed.push(point[0], point[1]);
     }
 
-    if (y > maxY) {
-      point[1] = -safeZone;
-    }
+    return computed;
 
-    points.push(point[0], point[1]);
-  }
-
-  // Grab a color from the default environment
-  if (!stroke) {
-    // eslint-disable-next-line no-param-reassign
-    stroke = color;
-  }
+    // Don't depend on Graphique context function
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [f, height, maxY, minX, minY, pointCount, safeZone, xDelta]);
 
   return (
-    <Polyline
-      {...props}
-      stroke={stroke}
-      strokeWidth={strokeWidth}
-      points={points}
-    />
+    <>
+      <Polyline
+        {...props}
+        stroke={stroke}
+        strokeWidth={strokeWidth}
+        points={points}
+      />
+      <FunctionContext value={points}>{children}</FunctionContext>
+    </>
   );
 }
 
 Function.propTypes = {
-  fn: PropTypes.func.isRequired,
+  f: PropTypes.func.isRequired,
   domain: PropTypes.arrayOf(PropTypes.number),
   stroke: PropTypes.string,
   strokeWidth: PropTypes.number,
@@ -63,11 +87,11 @@ Function.propTypes = {
 };
 
 Function.defaultProps = {
-  domain: null,
-  fill: 'transparent',
+  domain: undefined,
   stroke: undefined,
   strokeWidth: 3,
+  fill: 'transparent',
   pointCount: 300
 };
 
-export default Function;
+export default React.memo(Function);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Graphique, { Function, Axes, Arrow } from '@hugmanrique/graphique';
 
@@ -16,6 +16,14 @@ function weierstrass(x) {
 }
 
 function App() {
+  const [pos, setPos] = useState(0);
+
+  useEffect(() => {
+    const taskId = setTimeout(() => setPos(pos + 0.01), 200);
+
+    return () => clearTimeout(taskId);
+  });
+
   return (
     <div className="App">
       <p>Plots</p>
@@ -44,7 +52,7 @@ function App() {
       <Graphique viewport={{ x: [-0.5, 9], y: [-5, 81] }}>
         <Axes />
         <Function fn={x => x * x} domain={[0, 9]} />
-        <Arrow from={[5, 0]} to={[5, 25]} />
+        <Arrow from={[5, 0]} to={[5, pos]} />
       </Graphique>
     </div>
   );

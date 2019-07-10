@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 export const GraphiqueContext = React.createContext();
 
-export default function useGraphique() {
-  const { viewport, width, height, colors } = useContext(GraphiqueContext);
+export function useGraphiqueState({ width, height, viewport }) {
+  // Declare helper functions
 
   const {
     x: [minX, maxX],
@@ -40,28 +40,22 @@ export default function useGraphique() {
     return canvasX >= 0 && canvasX < width && canvasY >= 0 && canvasY < height;
   }
 
-  let colorIndex = 0;
-
-  function nextColor() {
-    const color = colors[colorIndex++];
-
-    if (colorIndex === colors.length) {
-      colorIndex = 0;
-    }
-
-    return color;
-  }
-
-  return {
-    // State
-    viewport,
+  // Declare global state
+  const [state] = useState({
+    // Actual state
     width,
     height,
+    viewport,
     // Helper functions
     getCanvasX,
     getCanvasY,
     getCanvasPoint,
-    isInCanvas,
-    nextColor
-  };
+    isInCanvas
+  });
+
+  return state;
+}
+
+export function useGraphique() {
+  return useContext(GraphiqueContext);
 }
