@@ -1,36 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import {
   Graphique,
   Function,
   FunctionPoint,
-  Axes
+  Axes,
+  Arrow
 } from '@hugmanrique/graphique';
 
-const x2 = x => x * x;
-const viewport = { x: [-5, 5], y: [-50, 50] };
+const x2 = x => 3 * x * x * x - Math.sqrt(x);
+const viewport = { x: [-0.5, 5], y: [-50, 50] };
 
 function App() {
-  /*const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    const id = setTimeout(() => setValue(value + 1), 1000);
-
-    return () => clearTimeout(id);
-  });*/
-
   return (
     <div className="App">
       <p>Plots</p>
       <Graphique viewport={viewport}>
         <Axes />
         <Function f={x2}>
-          <FunctionPoint x={3} labelOffset={[-50, -10]} />
+          <FunctionPoint x={3} labelOffset={[-48, -10]} />
         </Function>
       </Graphique>
     </div>
   );
 }
+
+/*
+<Arrow from={[3, 0]} to={[3, 9]} />
+        <Arrow from={[3, 9]} to={[0, 9]} />
 
 /*const a = 0.5;
 const b = 3;

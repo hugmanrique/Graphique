@@ -13,6 +13,7 @@ export const defaultPalette = [
 ];
 
 export const secondaryColor = '#CBD5E0';
+export const focusColor = '#718096';
 
 export const ColorContext = React.createContext();
 

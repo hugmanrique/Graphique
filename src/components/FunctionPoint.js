@@ -7,7 +7,7 @@ import Text from '../primitives/Text';
 import { useGraphique } from '../context';
 import { useFunction } from './Function';
 import { addOffset, pointType } from '../points';
-import { secondaryColor } from '../colors';
+import { focusColor } from '../colors';
 
 function FunctionPoint({
   x,
@@ -50,7 +50,7 @@ FunctionPoint.propTypes = {
 FunctionPoint.defaultProps = {
   labelOffset: [5, -10],
   pointRadius: 4,
-  pointColor: secondaryColor,
+  pointColor: focusColor,
   fontSize: 20
 };
 

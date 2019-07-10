@@ -6,12 +6,13 @@ function getIdealDelta(minValue, maxValue) {
   const delta = maxValue - minValue;
 
   const log = Math.log10(delta);
-  const flooredLog = Math.floor(log);
+  let flooredLog = Math.floor(log);
 
   let logDiff = log - flooredLog;
 
   if (logDiff > 0.5) {
     logDiff = 0.5 - logDiff;
+    flooredLog++;
   }
 
   const total = 10 ** flooredLog;

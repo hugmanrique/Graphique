@@ -6,6 +6,7 @@ import Line from '../primitives/Line';
 
 import { useGraphique } from '../context';
 import { pointType } from '../points';
+import { focusColor } from '../colors';
 
 const ARROW_SIZE = 10;
 const ARROW_OFFSET = [ARROW_SIZE - 2, 3];
@@ -21,14 +22,14 @@ function Arrow({ from, to, markerSize, stroke, ...props }) {
 
   // No risk of XSS, the id gets passed as a prop
   const markerId = generateMarkerId(from, to);
-  const markerViewbox = [markerSize * ARROW_SIZE, markerSize * ARROW_SIZE];
+  const markerViewbox = [ARROW_SIZE, ARROW_SIZE];
 
   return (
     <>
       <Marker
         id={markerId}
-        width={ARROW_SIZE}
-        height={ARROW_SIZE}
+        width={ARROW_SIZE * markerSize}
+        height={ARROW_SIZE * markerSize}
         offset={ARROW_OFFSET}
         viewbox={markerViewbox}
       >
@@ -53,8 +54,8 @@ Arrow.propTypes = {
 };
 
 Arrow.defaultProps = {
-  markerSize: 1,
-  stroke: '#718096',
+  markerSize: 0.8,
+  stroke: focusColor,
   strokeWidth: 2
 };
 

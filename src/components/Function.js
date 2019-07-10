@@ -48,6 +48,11 @@ function Function({
       const x = minX + xDelta * i;
       let y = f(x);
 
+      if (isNaN(y)) {
+        // TODO Split into multiple polylines
+        continue;
+      }
+
       const point = getCanvasPoint(x, y);
 
       // Clamp y values outside of view to reduce polyline length
