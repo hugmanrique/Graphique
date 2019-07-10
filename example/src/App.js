@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Graphique, Function } from '@hugmanrique/graphique';
+import { Graphique, Function, Axes } from '@hugmanrique/graphique';
 
 const x2 = x => x * x;
 const viewport = { x: [-5, 5], y: [-50, 50] };
@@ -18,6 +18,7 @@ function App() {
     <div className="App">
       <p>Plots</p>
       <Graphique viewport={viewport}>
+        <Axes />
         <Function f={x2} />
       </Graphique>
     </div>

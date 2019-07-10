@@ -14,7 +14,7 @@ function Tick({ point, direction, length, label, ...lineProps }) {
   start[direction] -= midLength;
 
   const end = clonePoint(point);
-  start[direction] += midLength;
+  end[direction] += midLength;
 
   let labelElem;
 
