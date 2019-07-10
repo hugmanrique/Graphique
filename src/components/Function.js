@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Polyline from '../primitives/Polyline';
@@ -7,9 +7,12 @@ import { useGraphique } from '../context';
 import { useColor } from '../colors';
 
 /**
- * Stores the computed function points as [x, y, x2, y2, ...].
+ * Stores the computed function points in `this.points` as [x, y, x2, y2, ...],
+ * and the function `f` in `this.f`.
  */
-export const FunctionContext = React.createContext();
+const FunctionContext = React.createContext();
+
+export const useFunction = () => useContext(FunctionContext);
 
 function Function({
   f,
@@ -65,6 +68,8 @@ function Function({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [f, height, maxY, minX, minY, pointCount, safeZone, xDelta]);
 
+  const contextValue = { points, f };
+
   return (
     <>
       <Polyline
@@ -73,7 +78,7 @@ function Function({
         strokeWidth={strokeWidth}
         points={points}
       />
-      <FunctionContext.Provider value={points}>
+      <FunctionContext.Provider value={contextValue}>
         {children}
       </FunctionContext.Provider>
     </>
