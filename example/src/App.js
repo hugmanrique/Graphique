@@ -4,12 +4,13 @@ import {
   Graphique,
   Function,
   FunctionPoint,
+  FunctionLabel,
   Axes,
   Arrow
 } from '@hugmanrique/graphique';
 
-const x2 = x => 3 * x * x * x - Math.sqrt(x);
-const viewport = { x: [-0.5, 5], y: [-50, 50] };
+const x2 = x => x * x;
+const viewport = { x: [-5, 5], y: [-50, 50] };
 
 function App() {
   return (
@@ -19,15 +20,16 @@ function App() {
         <Axes />
         <Function f={x2}>
           <FunctionPoint x={3} labelOffset={[-48, -10]} />
+          <FunctionLabel x={4.75} offset={[-75, -10]}>
+            ƒ(x) = x²
+          </FunctionLabel>
         </Function>
+        <Arrow from={[3, 0]} to={[3, 9]} />
+        <Arrow from={[3, 9]} to={[0, 9]} />
       </Graphique>
     </div>
   );
 }
-
-/*
-<Arrow from={[3, 0]} to={[3, 9]} />
-        <Arrow from={[3, 9]} to={[0, 9]} />
 
 /*const a = 0.5;
 const b = 3;

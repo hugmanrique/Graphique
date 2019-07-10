@@ -6,4 +6,5 @@ export { default as YAxis } from './components/YAxis';
 export { default as Axes } from './components/Axes';
 export { default as Arrow } from './components/Arrow';
 
+export { default as FunctionLabel } from './components/FunctionLabel';
 export { default as FunctionPoint } from './components/FunctionPoint';

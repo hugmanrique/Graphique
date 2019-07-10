@@ -13,12 +13,12 @@ code {
 }
 
 @font-face {
-  font-family: 'Math';
-  src: url('./math-regular.otf') format('opentype');
+  font-family: 'Computer Modern';
+  src: url('fonts/math-regular.otf') format('opentype');
 }
 
 svg text {
-  font-family: Math, sans-serif;
+  font-family: 'Computer Modern', sans-serif;
   fill: #2D3748;
 }
 
