@@ -1,59 +1,62 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 export const GraphiqueContext = React.createContext();
 
-export function useGraphiqueState({ width, height, viewport }) {
-  // Declare helper functions
+export function useGraphiqueData({ width, height, viewport }) {
+  // Memoize to avoid excessive function redefinition
+  const data = useMemo(() => {
+    const {
+      x: [minX, maxX],
+      y: [minY, maxY]
+    } = viewport;
 
-  const {
-    x: [minX, maxX],
-    y: [minY, maxY]
-  } = viewport;
+    // Declare helper functions
+    function getCanvasX(x) {
+      const xPercent = (x - minX) / (maxX - minX);
 
-  function getCanvasX(x) {
-    const xPercent = (x - minX) / (maxX - minX);
-
-    return xPercent * width;
-  }
-
-  function getCanvasY(y) {
-    const yPercent = (y - minY) / (maxY - minY);
-
-    return height - yPercent * height;
-  }
-
-  function getCanvasPoint(x, y) {
-    if (Array.isArray(x)) {
-      return getCanvasPoint(x[0], x[1]);
+      return xPercent * width;
     }
 
-    // x is a point of the form [x, y]
-    return [getCanvasX(x), getCanvasY(y)];
-  }
+    function getCanvasY(y) {
+      const yPercent = (y - minY) / (maxY - minY);
 
-  function isInCanvas(canvasX, canvasY) {
-    if (Array.isArray(canvasX)) {
-      // canvasX is a point of the form [x, y]
-      return isInCanvas(canvasX[0], canvasX[1]);
+      return height - yPercent * height;
     }
 
-    return canvasX >= 0 && canvasX < width && canvasY >= 0 && canvasY < height;
-  }
+    function getCanvasPoint(x, y) {
+      if (Array.isArray(x)) {
+        return getCanvasPoint(x[0], x[1]);
+      }
 
-  // Declare global state
-  const [state] = useState({
-    // Actual state
-    width,
-    height,
-    viewport,
-    // Helper functions
-    getCanvasX,
-    getCanvasY,
-    getCanvasPoint,
-    isInCanvas
-  });
+      // x is a point of the form [x, y]
+      return [getCanvasX(x), getCanvasY(y)];
+    }
 
-  return state;
+    function isInCanvas(canvasX, canvasY) {
+      if (Array.isArray(canvasX)) {
+        // canvasX is a point of the form [x, y]
+        return isInCanvas(canvasX[0], canvasX[1]);
+      }
+
+      return (
+        canvasX >= 0 && canvasX < width && canvasY >= 0 && canvasY < height
+      );
+    }
+
+    return {
+      // Actual state
+      width,
+      height,
+      viewport,
+      // Helper functions
+      getCanvasX,
+      getCanvasY,
+      getCanvasPoint,
+      isInCanvas
+    };
+  }, [width, height, viewport]);
+
+  return data;
 }
 
 export function useGraphique() {

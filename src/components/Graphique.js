@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { GraphiqueContext, useGraphiqueState } from '../context';
-import { ColorContext, useColorState, defaultPalette } from '../colors';
+import { GraphiqueContext, useGraphiqueData } from '../context';
+import { ColorContext, useColorData, defaultPalette } from '../colors';
 import { viewportType, defaultViewport } from '../viewport';
 
 function Graphique({ width, height, viewport, colorPalette, children }) {
-  const [state] = useGraphiqueState({ width, height, viewport });
-  const colorState = useColorState(colorPalette);
+  const data = useGraphiqueData({ width, height, viewport });
+  const colorData = useColorData(colorPalette);
 
   return (
     <svg
@@ -16,8 +16,8 @@ function Graphique({ width, height, viewport, colorPalette, children }) {
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
     >
-      <GraphiqueContext.Provider value={state}>
-        <ColorContext.Provider value={colorState}>
+      <GraphiqueContext.Provider value={data}>
+        <ColorContext.Provider value={colorData}>
           {children}
         </ColorContext.Provider>
       </GraphiqueContext.Provider>

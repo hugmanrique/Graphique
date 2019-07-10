@@ -26,7 +26,7 @@ function Function({
   let stroke = useColor();
 
   if (passedStroke) {
-    // Update stroke if prop was defined
+    // Override stroke if prop was defined
     stroke = passedStroke;
   }
 
@@ -73,7 +73,9 @@ function Function({
         strokeWidth={strokeWidth}
         points={points}
       />
-      <FunctionContext value={points}>{children}</FunctionContext>
+      <FunctionContext.Provider value={points}>
+        {children}
+      </FunctionContext.Provider>
     </>
   );
 }

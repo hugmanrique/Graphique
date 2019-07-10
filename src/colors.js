@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext } from 'react';
 
 // Courtesy of TailwindCSS (https://tailwindcss.com/docs/customizing-colors#default-color-palette)
 export const defaultPalette = [
@@ -14,11 +14,16 @@ export const defaultPalette = [
 
 export const ColorContext = React.createContext();
 
-export function useColorState(palette) {
-  const colorIndex = useRef(0);
-  const [state] = useState({ colorIndex, palette });
+export function useColorData(palette) {
+  // Mutable object which only persists for the current render.
+  const colorIndex = {
+    current: 0
+  };
 
-  return state;
+  return {
+    colorIndex,
+    palette
+  };
 }
 
 export function useColor() {
@@ -28,7 +33,8 @@ export function useColor() {
   const color = palette[currentIndex];
 
   // Increment color index
-  colorIndex.current = (currentIndex + 1) % palette.length;
+  const nextIndex = (currentIndex + 1) % palette.length;
+  colorIndex.current = nextIndex; // Manually mutate state to avoid rerender
 
   return color;
 }

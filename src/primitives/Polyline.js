@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { pointType } from '../points';
-
 function getRawPoints(points) {
   if (!Array.isArray(points)) {
     // {x: y, x2: y2}
@@ -22,8 +20,10 @@ function Polyline({ points, ...props }) {
 }
 
 Polyline.propTypes = {
-  points: PropTypes.oneOfType([PropTypes.arrayOf(pointType), PropTypes.object])
-    .isRequired
+  points: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number),
+    PropTypes.object
+  ]).isRequired
 };
 
 export default React.memo(Polyline);
